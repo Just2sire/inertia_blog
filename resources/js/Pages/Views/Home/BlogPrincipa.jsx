@@ -9,7 +9,7 @@ const BlogPrincipal = () => {
 
     const { posts } = usePage().props;
 
-    const post = useMemo(() => posts[0]);
+    const post = useMemo(() => posts[0], [posts]);
 
     const toggleComment = useCallback(() => {
         setToComment(!toComment);
@@ -30,7 +30,7 @@ const BlogPrincipal = () => {
                         <img src={`/externalAsset/postImages/${post.img}`} alt="" className="w-100" />
                         <a href="#" className="badge badge-primary">{post.tag}</a>
                     </div>
-                    <p className="my-3">{(post.content).substring(75)+'...' }</p>
+                    <p className="my-3">{(post.content).substring(0, 75)+'...' }</p>
                 </div>
 
                 <div className="card-footer d-flex justify-content-between align-items-center flex-basis-0">

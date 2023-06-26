@@ -26,7 +26,8 @@ class BlogControlleur extends Controller
             'post' =>  $post,
             'user' => $post->user,
             'comments' => Comment::where('post_id', $id)->with('user')->get(),
-            'tags' => Post::pluck('tag')
+            'tags' => Post::pluck('tag'),
+            'popularPosts' => Post::withCount('comments')->orderBy('comments_count', 'desc')->take(4)->get()
         ]);
     }
 

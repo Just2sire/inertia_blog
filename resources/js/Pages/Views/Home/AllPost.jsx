@@ -23,7 +23,7 @@ const AllPost = () => {
                         <span className="px-2">-</span>
                         <a href="#" className="text-muted">{(post.comments).length} Commentaires</a>
                     </small>
-                    <p className="my-2">{(post.content).substring(75) + '...'}</p>
+                    <p className="my-2">{(post.content).substring(0, 75) + '...'}</p>
                 </div>
 
                 <div className="card-footer p-0 text-center">

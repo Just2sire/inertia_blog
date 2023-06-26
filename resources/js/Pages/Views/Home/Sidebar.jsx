@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Link, usePage } from "@inertiajs/react";
+import formatDate from "../Utils/FormatDate";
 
 const Tags = () => {
 
@@ -15,45 +16,18 @@ const Tags = () => {
 const PopularPosts = () => {
 
     const { popularPosts } = usePage().props;
-
-    console.log(popularPosts);
     
-    const data = useMemo(() => [
-        {
-            image: "/assets/imgs/blog-6.jpg",
-            title: "Corporis Placeat",
-            date: "January 24 2019",
-            content: "consectetur adipisicing Cum veritatis minus iustorpo cupiditate voluptas ..."
-        },
-        {
-            image: "/assets/imgs/blog-1.jpg",
-            title: "Nobis Mollitia",
-            content: "deserunt quisqua...",
-            date: "January 02 2019"
-        },
-        {
-            image: "/assets/imgs/blog-2.jpg",
-            title: "Officiis Laborum",
-            content: "deserunt quisqua...",
-            date: "January 10 2019"
-        },
-        {
-            image: "/assets/imgs/blog-3.jpg",
-            title: "Sapiente fugit vero",
-            content: "deserunt ard quisqua...",
-            date: "January 04 2019"
-        }
-    ]);
+    const data = useMemo(() => popularPosts, [popularPosts]);
 
     return data.map((item, id) => (
         <div className="media text-left mb-4" key={id}>
             <Link href={`/post/${id}`} className="overlay-link"></Link>
-            <img className="mr-3" src={item.image} width="100px" alt="Generic placeholder image" />
+            <img className="mr-3" src={`/externalAsset/postImages/${item.img}`} width="100px" alt="Generic placeholder image" />
             <div className="media-body">
                 <h6 className="mt-0">{item.title}</h6>
-                <p className="mb-2"> {("deserunt quisqua...")}</p>
-                {/* <p className="mb-2"> {("deserunt quisqua...").substring()}</p> */}
-                <p className="text-muted small"><i className="ti-calendar pr-1"></i>  {item.date}</p>
+                {/* <p className="mb-2"> {("deserunt quisqua...")}</p> */}
+                <p className="mb-2"> {item.content.substring(0, 25)+'...'}</p>
+                <p className="text-muted small"><i className="ti-calendar pr-1"></i>  {formatDate(item.created_at)}</p>
             </div>
         </div>
     ))
@@ -62,11 +36,11 @@ const PopularPosts = () => {
 const Sidebar = () => {
     return (
         <div className="page-sidebar text-center">
-            <h6 className="sidebar-title section-title mb-4 mt-3">About</h6>
-            <img src="/assets/imgs/avatar.jpg" alt="" className="circle-100 mb-3 m-auto" />
+            <h6 className="sidebar-title section-title mb-4 mt-3">À propos</h6>
+            <img src="/assets/imgs/admin.jpg" alt="" className="circle-100 mb-3 m-auto" />
             {/* <img src="/assets/imgs/avatar.jpg" alt="" className="circle-100 mb-3" /> */}
             <div className="socials mb-3 mt-2">
-                <a href="#">
+                <a href="https://www.facebook.com/desire.kossi.792" target="_blank">
                     <i className="ti-facebook"></i>
                 </a>
                 <a href="#">
@@ -82,8 +56,10 @@ const Sidebar = () => {
                     <i className="ti-youtube"></i>
                 </a>
             </div>
-            <p>Consectetur adipisicing elit Possimus tempore facilis dolorum veniam impedit nobis. Quia, soluta incidunt nesciunt dolorem reiciendis iusto.</p>
-
+            <p>
+                Je suis un jeune développeur passionné de développement web.J'adore beaucoup JavaScrip qui avec sa polyvalence et son potentiel
+                infini, est devenu mon langage de prédilection pour donner vie à mes projets.
+            </p>
 
             <h6 className="sidebar-title mt-5 mb-4">Newsletter</h6>
             <form action="">
