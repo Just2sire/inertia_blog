@@ -1,5 +1,6 @@
-import { useMemo } from "react";
-import { Link, usePage } from "@inertiajs/react";
+import { useCallback, useMemo } from "react";
+import { Link, usePage, useForm } from "@inertiajs/react";
+import InputError from "@/Components/InputError";
 import formatDate from "../Utils/FormatDate";
 
 const Tags = () => {
@@ -13,10 +14,36 @@ const Tags = () => {
     ));
 }
 
+const Newsletter = () => {
+
+    const { data, setData, errors, processing, post } = useForm({
+        email: ''
+    });
+
+    const handleChange = useCallback((e) => {
+        setData('email', e.target.value);
+    })
+    const handleSubmit = useCallback((e) => {
+        e.preventDefault();
+
+        post(route('news.store'));
+    })
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="subscribe-wrapper">
+                <input type="email" onChange={handleChange} className="form-control" placeholder="Adresse Mail" />
+                <InputError message={errors.email} className="mt-2" />
+                <button type="submit" className="btn btn-primary"><i className="ti-location-arrow"></i></button>
+            </div>
+        </form>
+    )
+}
+
 const PopularPosts = () => {
 
     const { popularPosts } = usePage().props;
-    
+
     const data = useMemo(() => popularPosts, [popularPosts]);
 
     return data.map((item, id) => (
@@ -26,7 +53,7 @@ const PopularPosts = () => {
             <div className="media-body">
                 <h6 className="mt-0">{item.title}</h6>
                 {/* <p className="mb-2"> {("deserunt quisqua...")}</p> */}
-                <p className="mb-2"> {item.content.substring(0, 25)+'...'}</p>
+                <p className="mb-2"> {item.content.substring(0, 25) + '...'}</p>
                 <p className="text-muted small"><i className="ti-calendar pr-1"></i>  {formatDate(item.created_at)}</p>
             </div>
         </div>
@@ -62,12 +89,7 @@ const Sidebar = () => {
             </p>
 
             <h6 className="sidebar-title mt-5 mb-4">Newsletter</h6>
-            <form action="">
-                <div className="subscribe-wrapper">
-                    <input type="email" className="form-control" placeholder="Adresse Mail" />
-                    <button type="submit" className="btn btn-primary"><i className="ti-location-arrow"></i></button>
-                </div>
-            </form>
+            <Newsletter />
 
             <h6 className="sidebar-title mt-5 mb-4">Tags</h6>
             <Tags />

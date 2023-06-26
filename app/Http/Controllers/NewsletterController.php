@@ -29,6 +29,17 @@ class NewsletterController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->input();
+
+        $request->validate([
+            'email' => "required|email"
+        ]);
+
+        dd($data);
+
+        $store = Newsletter::create([
+            'email' => $data['email']
+        ]);
     }
 
     /**

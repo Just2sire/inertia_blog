@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogControlleur;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,6 +32,7 @@ use Inertia\Inertia;
 Route::get('/', [BlogControlleur::class ,'index']);
 Route::get('/home', [BlogControlleur::class ,'index']);
 Route::get('/post/{id}', [BlogControlleur::class ,'show'])->name('post.show');
+Route::resource('news', NewsletterController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
